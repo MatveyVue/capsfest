@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CapsFest</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div class="header">
+    <img class="image" src="https://i.postimg.cc/2yS1Tw0Z/BAEE5-EAC-77-E0-4931-A0-F3-72049-DB167-A3.png">
+    <div id="ton-connect" style="width: 170px; float: right; margin-top: 18px;"></div>
+</div> 
+
+<div style="text-align: center;">
+    <img class="hi" src="https://i.postimg.cc/2yS1Tw0Z/BAEE5-EAC-77-E0-4931-A0-F3-72049-DB167-A3.png">
+    <h1>Welcome to the<br>cap festival</h1>
+    <button class="claim" onclick="sendTransaction()">Claim</button>
+</div>
+
+<div class="leaders">
+    <h2>Leaders</h2>
+<center>
+    <div class="leader">
+        <p style="font-family: Geologica; color: white; margin-left: 10px; position: absolute;">1)</p>
+        <p style="font-family: Geologica; color: white; margin-left: 50px; position: absolute;"><a href="https://tonviewer.com/UQDZjPZJeWVWaaCy9fvp5sboGY83pZ62lb6Uz7-hcXAEcB_e">matveymatvey.ton</a></p>
+        <p style="font-family: Geologica; color: white; float: right; margin-right: 10px;">0.1 TON</p>
+    </div>
+</center>
+</div>
+
+<script>
+const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+    manifestUrl: 'https://raw.githubusercontent.com/MatveyVue/caps/refs/heads/main/tonconnect-manifest.json',
+    buttonRootId: 'ton-connect'
+})
+</script>
+<script>
+    async function connectToWallet() {
+        const connectedWallet = await tonConnectUI.connectWallet();
+            console.log(connectedWallet);
+}
+    connectToWallet().catch(error => {
+        console.error("Error connecting to wallet:", error);
+});
+
+const transaction = {
+    messages: [
+        {
+            address: "EQABa48hjKzg09hN_HjxOic7r8T1PleIy1dRd8NvZ3922MP0", // destination address
+            amount: "20000000" //Toncoin in nanotons
+        }
+    ]
+}
+const result = await tonConnectUI.sendTransaction(transaction)
+await tonConnectUI.disconnect();
+</script>
+</body>
+</html>
