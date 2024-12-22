@@ -19,7 +19,7 @@
 <div style="text-align: center;">
     <img class="hi" src="https://i.postimg.cc/2yS1Tw0Z/BAEE5-EAC-77-E0-4931-A0-F3-72049-DB167-A3.png">
     <h1>Welcome to the<br>cap festival</h1>
-    <button class="claim" type="button" onclick="sendTransaction()">Claim</button>
+    <button class="claim" type="button" onclick="transaction()">Claim</button>
 </div>
 
 <div class="leaders">
@@ -33,31 +33,30 @@
 </center>
 </div>
 
+div>
 <script>
-const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-    manifestUrl: 'https://raw.githubusercontent.com/MatveyVue/caps/refs/heads/main/tonconnect-manifest.json',
-    buttonRootId: 'ton-connect'
-})
-</script>
-<script>
-    async function connectToWallet() {
-        const connectedWallet = await tonConnectUI.connectWallet();
-            console.log(connectedWallet);
-}
-    connectToWallet().catch(error => {
-        console.error("Error connecting to wallet:", error);
-});
+    const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+        manifestUrl: 'https://raw.githubusercontent.com/MatveyVue/caps/refs/heads/main/tonconnect-manifest.json',
+        buttonRootId: 'ton-connect'
+    });
 
-const transaction = {
+    async function transaction() {
+  const transaction = {
+    validUntil: Math.round(Date.now() / 1000) + 10,
     messages: [
-        {
-            address: "EQABa48hjKzg09hN_HjxOic7r8T1PleIy1dRd8NvZ3922MP0", // destination address
-            amount: "20000000" //Toncoin in nanotons
-        }
+      {
+        address: "UQBP_FhYMR0QW76tIUw8QwRy07ydPJOqmwS_k590d7xbDOm4",
+        amount: "10000000"
+      }
     ]
+  };
+
+  try {
+    await tonConnectUI.sendTransaction(transaction);
+  } catch (e) {
+    console.error(e);
+  }
 }
-const result = await tonConnectUI.sendTransaction(transaction)
-await tonConnectUI.disconnect();
 </script>
 </body>
 </html>
